@@ -15,15 +15,33 @@ server = app.server
 
 graduados = pd.read_csv('dataset/graduados_acacias.csv')
 print(graduados.columns)
+colors = {
+    'background': '#111111',
+    'text': '#7FDBFF'
+}
 
 fig= px.bar(graduados,x="ESTRATO 2",y="INSTITUCIÓN EDUCATIVA")
 
-app.layout = html.Div(children=[
-    html.H1(children='Bienvenido a mi Dash experimental'),
+#Modificación del diseño del layout
+fig.update_layout(
+    plot_bgcolor=colors['background'],
+    paper_bgcolor=colors['background'],
+    font_color=colors['text']
+)
+
+app.layout = html.Div(style={'backgroundColor': colors['background']}, children=[
+    html.H1(children='Bienvenido a mi Dash experimental',
+    style={
+        'textAlign': 'center',
+        'color': colors['text']
+    }),
 
     html.Div(children='''
         Estudiantes graduados en la ciudad de Acacias-Meta desde 2013 - 2019.
-    '''),
+    ''',
+    style={
+        'textAlign': 'center'
+    }),
 
     dcc.Graph(
         id='example-graph',
